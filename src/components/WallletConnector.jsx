@@ -52,38 +52,22 @@ function WalletConnector() {
     }
   }
 
-  useEffect(() => {
-    if (window.ethereum && !connected) {
-      const web3Instance = new Web3(window.ethereum);
-      setWeb3(web3Instance);
-      web3Instance.eth.getAccounts()
-        .then(accs => {
-          if (accs.length > 0) {
-            setAccounts(accs);
-            setConnected(true);
-          }
-        })
-        .catch(error => console.error('Error connecting wallet:', error));
-    }
-  }, [connected]);
-
   return (
-    <div className='flex flex-wrap space-y-4 md:space-x-6 items-center'>
+    <div className='flex flex-col space-y-4 md:space-x-6 md:flex-row items-center '>
       <div>
-        {connected && (
-          <div>
-            <p><span className='font-bold'>Connected Account:</span> {accounts.length > 0 ? accounts[0] : 'None'}</p>
-            <p><span className='font-bold'>Balance:</span> {balance} ETH</p>
-          </div>
-        )}
+        {connected && <p>Connected Account:  {accounts[0]} ETH</p>}
+        {connected && <p>Balance: {balance} ETH</p>}
       </div>
-      <button 
-        className="bg-green-500 p-4 text-md hover:bg-green-400 font-bold rounded-md"
-        onClick={handleConnect}
-      >
-        Connect Wallet
-      </button>
-      <Toaster position="top-right" />
+     
+        <button 
+          className="bg-green-500 p-4 text-md hover:bg-green-400 font-bold rounded-md"
+          onClick={handleConnect}
+        >
+          Connect Wallet
+        </button>
+
+     
+      <Toaster closeButton position="top-right" />
     </div>
   );
 }

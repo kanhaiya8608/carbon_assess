@@ -1,5 +1,5 @@
 import React from 'react'
-import WalletConnector from './WalletConnector'
+import WalletConnector from './WallletConnector'
 function Header() {
   return (
     <div className='flex md:flex-row flex-col justify-between mb-6'>
