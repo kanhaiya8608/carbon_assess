@@ -8,6 +8,15 @@ function WalletConnector() {
   const [balance, setBalance] = useState('');
   const [connected, setConnected] = useState(false);
 
+  // Load previously connected account from local storage on component mount
+  useEffect(() => {
+    const connectedAccount = localStorage.getItem('connectedAccount');
+    if (connectedAccount) {
+      setAccounts([connectedAccount]);
+      setConnected(true);
+    }
+  }, []);
+
   useEffect(() => {
     async function fetchBalance() {
       if (web3 && accounts.length > 0) {
@@ -37,6 +46,8 @@ function WalletConnector() {
             position: 'top-right',
             autoClose: 10000
           });
+          // Store connected account in local storage
+          localStorage.setItem('connectedAccount', accs[0]);
         } catch (error) {
           toast.error(`Error connecting wallet: ${error.message}`, {
             position: 'top-right',
